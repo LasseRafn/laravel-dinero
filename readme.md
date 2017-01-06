@@ -1,4 +1,8 @@
 ## Laravel Dinero REST wrapper
+This is a PHP/Laravel wrapper for Dinero.
+
+You could actually use this for non-Laravel projects aswell, since we do not utilize any Laravel-specific functionality (we use Illuminate collections, that is required in the composers file)
+**However** I do not support anything but Laravel, so it has not been tested. Use at your own risk.
 
 #Installation
 
@@ -7,12 +11,7 @@
 composer require lasserafn/dinero-economic
 ````
 
-# Usage
-You could actually use this for non-Laravel projects aswell, since we do not utilize any Laravel-specific functionality (we use Illuminate collections, that is required in the composers file)
-**However** I do not support anything but Laravel, so it has not been tested. Use at your own risk.
-
-## Initializing
-It's simple to get started
+# Getting started
 ```` php
  $dinero = new \LasseRafn\Dinero\Dinero( $clientId, $clientSecret );
  $dinero->auth( $apiKey, $orgId ); // this WILL send a request to the auth API.
@@ -37,3 +36,7 @@ You can also use an old auth token, if you dont want to auth everytime you setup
  
  $products = $dinero->products()->deletedOnly()->all();
 ````
+
+## About us / me
+I created this library to make integrations with Dinero easier, considering we do **A LOT** of integrations at my work. 
+I did this project while working at [Bizz Zolutions](https://bizzz.dk).
