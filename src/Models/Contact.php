@@ -5,50 +5,56 @@ use LasseRafn\Dinero\Utils\Model;
 class Contact extends Model
 {
 	protected $entity     = 'contacts';
-	protected $primaryKey = 'contactGuid';
+	protected $primaryKey = 'ContactGuid';
 	protected $fillable   = [
-		'contactGuid',
-		'createdAt',
-		'updatedAt',
-		'deletedAt',
-		'isDebitor',
-		'isCreditor',
-		'externalReference',
-		'name',
-		'street',
-		'zipCode',
-		'city',
-		'countryKey',
-		'phone',
-		'email',
-		'webpage',
-		'attPerson',
-		'vatNumber',
-		'eanNumber',
-		'paymentConditionType',
-		'paymentConditionNumberOfDays',
-		'isPerson',
+		'ContactGuid',
+		'CreatedAt',
+		'UpdatedAt',
+		'DeletedAt',
+		'IsDebitor',
+		'IsCreditor',
+		'ExternalReference',
+		'Name',
+		'Street',
+		'ZipCode',
+		'City',
+		'CountryKey',
+		'Phone',
+		'Email',
+		'Webpage',
+		'AttPerson',
+		'VatNumber',
+		'EanNumber',
+		'PaymentConditionType',
+		'PaymentConditionNumberOfDays',
+		'IsPerson',
 	];
 
-	public $contactGuid;
-	public $createdAt;
-	public $updatedAt;
-	public $deletedAt;
-	public $isDebitor;
-	public $isCreditor;
-	public $externalReference;
-	public $name;
-	public $street;
-	public $zipCode;
-	public $city;
-	public $countryKey;
-	public $phone;
-	public $email;
-	public $webpage;
-	public $attPerson;
-	public $vatNumber;
-	public $eanNumber;
-	public $paymentConditionType;
-	public $paymentConditionNumberOfDays;
-	public $isPerson;
+	public $ContactGuid;
+	public $CreatedAt;
+	public $UpdatedAt;
+	public $DeletedAt;
+
+	/** @var boolean */
+	public $IsDebitor;
+
+	/** @var boolean */
+	public $IsCreditor;
+	public $ExternalReference;
+	public $Name;
+	public $Street;
+	public $ZipCode;
+	public $City;
+	public $CountryKey;
+	public $Phone;
+	public $Email;
+	public $Webpage;
+	public $AttPerson;
+	public $VatNumber;
+	public $EanNumber;
+	public $PaymentConditionType;
+	public $PaymentConditionNumberOfDays;
+
+	/** @var boolean */
+	public $IsPerson;
 }
