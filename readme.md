@@ -15,7 +15,7 @@ You could actually use this for non-Laravel projects aswell, since we do not uti
 It's simple to get started
 ```` php
  $dinero = new \LasseRafn\Dinero\Dinero( $clientId, $clientSecret );
- $dinero->auth( $apiKey, $orgId );
+ $dinero->auth( $apiKey, $orgId ); // this WILL send a request to the auth API.
  
  $contacts = $dinero->contacts()->perPage(10)->page(2)->get();
  
@@ -27,5 +27,13 @@ It's simple to get started
 ````
 
 ```` php
+ $products = $dinero->products()->deletedOnly()->all();
+````
+
+You can also use an old auth token, if you dont want to auth everytime you setup a new instance of Dinero.
+```` php
+ $dinero = new \LasseRafn\Dinero\Dinero( $clientId, $clientSecret );
+ $dinero->setAuth($token, $orgId); // this will NOT send a request to the auth API.
+ 
  $products = $dinero->products()->deletedOnly()->all();
 ````
