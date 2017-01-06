@@ -155,4 +155,9 @@ class RequestBuilder
 
 		return $items;
 	}
+
+	public function find($guid)
+	{
+		return $this->builder->find($guid);
+	}
 }
