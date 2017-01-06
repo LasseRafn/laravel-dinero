@@ -64,7 +64,7 @@ class InvoiceRequestBuilder extends RequestBuilder
 		return $this->sortBy('VoucherDate');
 	}
 
-	public function sortByStats()
+	public function sortByStatus()
 	{
 		return $this->sortBy('Status');
 	}
