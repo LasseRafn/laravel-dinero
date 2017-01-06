@@ -32,7 +32,7 @@ class Dinero
 			$response = json_decode($this->request->curl->post( $this->request->getAuthUrl(), [
 				'form_params' => [
 					'grant_type' => 'password',
-					'scope'      => 'read',
+					'scope'      => 'read write',
 					'username'   => $apiKey,
 					'password'   => $apiKey
 				]
