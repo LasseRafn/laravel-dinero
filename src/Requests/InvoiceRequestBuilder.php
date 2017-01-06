@@ -1,9 +1,17 @@
 <?php namespace LasseRafn\Dinero\Requests;
 
+use LasseRafn\Dinero\Builders\Builder;
 use LasseRafn\Dinero\Utils\RequestBuilder;
 
 class InvoiceRequestBuilder extends RequestBuilder
 {
+	public function __construct( Builder $builder )
+	{
+		$this->parameters['fields'] = 'Guid,ContactName,Date,Description,TotalInclVat,Currency,Status';
+
+		parent::__construct( $builder );
+	}
+
 	public function from(\DateTime $startDate)
 	{
 		$this->parameters['startDate'] = $startDate->format($this->dateFormat);
