@@ -3,6 +3,4 @@
 use LasseRafn\Dinero\Utils\RequestBuilder;
 
 class ContactRequestBuilder extends RequestBuilder
-{
-
-}
+{}

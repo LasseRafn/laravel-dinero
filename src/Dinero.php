@@ -2,6 +2,9 @@
 
 use GuzzleHttp\Exception\ClientException;
 use LasseRafn\Dinero\Builders\ContactBuilder;
+use LasseRafn\Dinero\Builders\InvoiceBuilder;
+use LasseRafn\Dinero\Requests\ContactRequestBuilder;
+use LasseRafn\Dinero\Requests\InvoiceRequestBuilder;
 use LasseRafn\Dinero\Utils\Request;
 use LasseRafn\Dinero\Utils\RequestBuilder;
 
@@ -54,12 +57,12 @@ class Dinero
 
 	public function contacts()
 	{
-		return new RequestBuilder(new ContactBuilder($this->request));
+		return new ContactRequestBuilder(new ContactBuilder($this->request));
 	}
 
 	public function invoices()
 	{
-//		return new RequestBuilder(new InvoiceBuilder($this->request));
+		return new InvoiceRequestBuilder(new InvoiceBuilder($this->request));
 	}
 
 	public function products()

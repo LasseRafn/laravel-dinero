@@ -11,7 +11,8 @@ class RequestBuilder
 {
 	private $builder;
 
-	private $parameters = [];
+	protected $parameters = [];
+	protected $dateFormat = 'Y-m-d\TH:i:s\Z';
 
 	public function __construct( Builder $builder )
 	{
@@ -87,6 +88,18 @@ class RequestBuilder
 	public function deletedOnly()
 	{
 		$this->parameters['deletedOnly'] = 'true';
+
+		return $this;
+	}
+
+	/**
+	 * @param \DateTime $date
+	 *
+	 * @return $this
+	 */
+	public function since(\DateTime $date)
+	{
+		$this->parameters['changesSince'] = $date->format($this->dateFormat);
 
 		return $this;
 	}

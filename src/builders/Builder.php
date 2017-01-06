@@ -1,5 +1,7 @@
 <?php namespace LasseRafn\Dinero\Builders;
 
+use GuzzleHttp\Exception\ClientException;
+use LasseRafn\Dinero\Exceptions\DineroRequestException;
 use LasseRafn\Dinero\Utils\Model;
 use LasseRafn\Dinero\Utils\Request;
 
@@ -23,11 +25,17 @@ class Builder
 	 */
 	public function find( $id )
 	{
-		$response = $this->request->curl->get( "{$this->entity}/{$id}" );
-
-		// todo check for errors and such
-
-		$responseData = json_decode( $response->getBody()->getContents() );
+		try
+		{
+			$response = $this->request->curl->get( "{$this->entity}/{$id}" );
+			$responseData = json_decode( $response->getBody()->getContents() );
+		} catch ( ClientException $exception )
+		{
+			throw new DineroRequestException($exception);
+		} catch ( \RuntimeException $exception )
+		{
+			// todo...
+		}
 
 		return new $this->model( $this->request, $responseData );
 	}
@@ -39,11 +47,17 @@ class Builder
 	 */
 	public function get( $parameters = '' )
 	{
-		$response = $this->request->curl->get( "{$this->entity}{$parameters}" );
-
-		// todo check for errors and such
-
-		$responseData = json_decode( $response->getBody()->getContents() );
+		try
+		{
+			$response = $this->request->curl->get( "{$this->entity}{$parameters}" );
+			$responseData = json_decode( $response->getBody()->getContents() );
+		} catch ( ClientException $exception )
+		{
+			throw new DineroRequestException($exception);
+		} catch ( \RuntimeException $exception )
+		{
+			// todo...
+		}
 
 		/** @var array $fetchedItems */
 		$fetchedItems = $responseData->Collection;
@@ -55,48 +69,6 @@ class Builder
 			$model = new $this->model( $this->request, $item );
 
 			$items->push( $model );
-		}
-
-		return $items;
-	}
-
-	/**
-	 * @return \Illuminate\Support\Collection|Model[]
-	 */
-	public function all()
-	{
-		$page     = 0;
-		$pagesize = 100;
-		$hasMore  = true;
-		$items    = collect( [] );
-
-		while ( $hasMore )
-		{
-			$response = $this->request->curl->get( "{$this->entity}?page={$page}&pageSize={$pagesize}" );
-
-			// todo check for errors and such
-
-			$responseData = json_decode( $response->getBody()->getContents() );
-
-			/** @var array $fetchedItems */
-			$fetchedItems = $responseData->Collection;
-
-			if ( count( $fetchedItems ) === 0 )
-			{
-				$hasMore = false;
-
-				break;
-			}
-
-			foreach ( $fetchedItems as $item )
-			{
-				/** @var Model $model */
-				$model = new $this->model( $this->request, $item );
-
-				$items->push( $model );
-			}
-
-			$page ++;
 		}
 
 		return $items;
