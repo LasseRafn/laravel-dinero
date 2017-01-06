@@ -156,6 +156,11 @@ class RequestBuilder
 		return $items;
 	}
 
+	/**
+	 * @param $guid
+	 *
+	 * @return Model|mixed
+	 */
 	public function find($guid)
 	{
 		return $this->builder->find($guid);
