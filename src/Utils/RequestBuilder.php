@@ -11,15 +11,13 @@ class RequestBuilder
 {
 	private $builder;
 
-	private $fields = [];
-	private $queryFilter = null; // todo set these
-	private $changesSince = null; // todo set these
-	private $deletedOnly = null;
-	private $page = 0;
-	private $pageSize = 100;
+	private $parameters = [];
 
 	public function __construct( Builder $builder )
 	{
+		$this->parameters['page'] = 0;
+		$this->parameters['pageSize'] = 100;
+
 		$this->builder = $builder;
 	}
 
@@ -30,16 +28,21 @@ class RequestBuilder
 	 */
 	public function select( $fields )
 	{
+		if(!isset($this->parameters['fields']))
+		{
+			$this->parameters['fields'] = [];
+		}
+
 		if ( is_array( $fields ) )
 		{
 			foreach ( $fields as $field )
 			{
-				$this->fields[] = $field;
+				$this->parameters['fields'][] = $field;
 			}
 		}
 		elseif ( is_string( $fields ) || is_int( $fields ) )
 		{
-			$this->fields[] = $fields;
+			$this->parameters['fields'][] = $fields;
 		}
 		elseif ( typeOf( $fields ) === Collection::class )
 		{
@@ -47,7 +50,7 @@ class RequestBuilder
 
 			foreach ( $fields->toArray() as $field )
 			{
-				$this->fields[] = $field;
+				$this->parameters['fields'][] = $field;
 			}
 		}
 
@@ -61,7 +64,7 @@ class RequestBuilder
 	 */
 	public function page($page)
 	{
-		$this->page = $page;
+		$this->parameters['page'] = $page;
 
 		return $this;
 	}
@@ -73,7 +76,7 @@ class RequestBuilder
 	 */
 	public function perPage($pageSize)
 	{
-		$this->pageSize = $pageSize;
+		$this->parameters['pageSize'] = $pageSize;
 
 		return $this;
 	}
@@ -83,7 +86,7 @@ class RequestBuilder
 	 */
 	public function deletedOnly()
 	{
-		$this->deletedOnly = true;
+		$this->parameters['deletedOnly'] = 'true';
 
 		return $this;
 	}
@@ -93,32 +96,7 @@ class RequestBuilder
 	 */
 	private function buildParameters()
 	{
-		$parameters = [];
-
-		$parameters['page'] = $this->page;
-		$parameters['pageSize'] = $this->pageSize;
-
-		if( count($this->fields) > 0)
-		{
-			$parameters['fields'] = $this->fields;
-		}
-
-		if( $this->deletedOnly !== null)
-		{
-			$parameters['deletedOnly'] = 'true';
-		}
-
-		if( $this->changesSince !== null)
-		{
-			$parameters['changesSince'] = $this->changesSince;
-		}
-
-		if( $this->queryFilter !== null)
-		{
-			$parameters['queryFilter'] = $this->queryFilter;
-		}
-
-		$parameters = http_build_query($parameters);
+		$parameters = http_build_query($this->parameters);
 
 		if( $parameters !== '')
 		{
@@ -154,7 +132,7 @@ class RequestBuilder
 				$items->push($item);
 			}
 
-			$this->page($this->page + 1);
+			$this->page($this->parameters['page'] + 1);
 
 			if( $sleep)
 			{
