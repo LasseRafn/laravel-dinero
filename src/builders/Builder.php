@@ -1,7 +1,9 @@
 <?php namespace LasseRafn\Dinero\Builders;
 
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 use LasseRafn\Dinero\Exceptions\DineroRequestException;
+use LasseRafn\Dinero\Exceptions\DineroServerException;
 use LasseRafn\Dinero\Utils\Model;
 use LasseRafn\Dinero\Utils\Request;
 
@@ -34,6 +36,9 @@ class Builder
 		} catch ( ClientException $exception )
 		{
 			throw new DineroRequestException($exception);
+		} catch ( ServerException $exception )
+		{
+			throw new DineroServerException($exception);
 		}
 
 	}
@@ -55,6 +60,9 @@ class Builder
 		} catch ( \RuntimeException $exception )
 		{
 			// todo...
+		} catch ( ServerException $exception )
+		{
+			throw new DineroServerException($exception);
 		}
 
 		/** @var array $fetchedItems */

@@ -1,10 +1,10 @@
 <?php namespace LasseRafn\Dinero\Exceptions;
 
-use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 
-class DineroRequestException extends ClientException
+class DineroServerException extends ServerException
 {
-	public function __construct( ClientException $clientException )
+	public function __construct( ServerException $clientException )
 	{
 		$message = $clientException->getMessage();
 
@@ -33,9 +33,9 @@ class DineroRequestException extends ClientException
 			}
 		}
 
-		$request        = $clientException->getRequest();
-		$response       = $clientException->getResponse();
-		$previous       = $clientException->getPrevious();
+		$request = $clientException->getRequest();
+		$response = $clientException->getResponse();
+		$previous = $clientException->getPrevious();
 		$handlerContext = $clientException->getHandlerContext();
 
 		parent::__construct( $message, $request, $response, $previous, $handlerContext );
