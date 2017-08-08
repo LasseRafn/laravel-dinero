@@ -12,7 +12,7 @@ class RequestBuilder
 	private $builder;
 
 	protected $parameters = [];
-	protected $dateFormat = 'Y-m-d\TH:i:s\Z';
+	protected $dateFormat = 'Y-m-d';
 
 	public function __construct( Builder $builder )
 	{
