@@ -66,7 +66,7 @@ class Builder
 		}
 
 		/** @var array $fetchedItems */
-		$fetchedItems = $responseData->Collection;
+		$fetchedItems = isset($this->collectionName) ? $responseData->{$this->collectionName} : $responseData->Collection;
 
 		$items = collect( [] );
 		foreach ( $fetchedItems as $item )

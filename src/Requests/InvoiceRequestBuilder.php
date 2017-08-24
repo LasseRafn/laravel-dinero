@@ -7,7 +7,7 @@ class InvoiceRequestBuilder extends RequestBuilder
 {
 	public function __construct( Builder $builder )
 	{
-		$this->parameters['fields'] = 'Guid,ContactName,Date,Description,TotalInclVat,Currency,Status';
+		$this->parameters['fields'] = 'CreatedAt,UpdatedAt,DeletedAt,Guid,Date,Status,TotalInclVat,Description,ContactName,Number,Currency,PaymentDate,Type,TotalExclVat,TotalInclVatInDkk,TotalExclVatInDkk,MailOutStatus';
 
 		parent::__construct( $builder );
 	}
