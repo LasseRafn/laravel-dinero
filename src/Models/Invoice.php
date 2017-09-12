@@ -36,6 +36,10 @@ class Invoice extends Model
         'Date',
         'ProductLines',
         'Address',
+        'Type',
+        'TotalInclVatInDkk',
+        'TotalExclVatInDkk',
+        'MailOutStatus'
     ];
 
     public $PaymentDate;
@@ -56,6 +60,10 @@ class Invoice extends Model
     public $TotalInclVat;
     public $TotalNonVatableAmount;
     public $TotalVat;
+    public $Type;
+    public $TotalInclVatInDkk;
+    public $TotalExclVatInDkk;
+    public $MailOutStatus;
 
     /** @var array */
     public $TotalLines;
